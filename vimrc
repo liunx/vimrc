@@ -225,14 +225,16 @@ if has("cscope")
 	set cst
 	set nocsverb
 	" add any database in current directory
-	if filereadable("/home/liunx/Work/Kernel/linux-2.6/cscope.out")
-	    cs add /home/liunx/Work/Kernel/linux-2.6/cscope.out
+	if filereadable("cscope.out")
+	    cs add cscope.out
 	" else add database pointed to by environment
 	elseif $CSCOPE_DB != ""
 	    cs add $CSCOPE_DB
 	endif
 	set csverb
 endif
+
+"set cscopequickfix=s-,c-,d-,i-,t-,e-
 
 map <C-_> :cstag <C-R>=expand("<cword>")<CR><CR>
 map g<C-]> :cs find 3 <C-R>=expand("<cword>")<CR><CR>
@@ -289,10 +291,7 @@ nnoremap <silent> <Leader>stj :execute "stjump " .  expand("<cword>")<CR>
 " we can find tags with this keymap
 nnoremap <silent> <Leader>sts :execute "stselect " . input(":")<CR>
 
-set tags=~/Work/Kernel/linux-2.6/tags
-set tags+=~/Work/Emulator/tags
-set tags+=~/Work/BuildRoot/mips/build/tags
-set tags+=~/Work/Broadcom/tags
+set tags+=
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " Vim addons manager settings
