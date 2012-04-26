@@ -616,3 +616,8 @@ nnoremap <silent> <C-y>o :execute "YRPop " . input(":")<CR>
 " FileType indent settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 autocmd FileType vim set tabstop=4 shiftwidth=4 expandtab
+
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" DoxygenToolkit settings
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+nnoremap <silent> <C-x>dx :Dox<CR>
