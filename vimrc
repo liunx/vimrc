@@ -106,6 +106,8 @@ endif
 if has("gui_running")
 	set guifont=Monospace\ 12
 	set guioptions-=m
+    " do not show tool bars
+    set guioptions-=T
 	set t_Co=256
 	set background=dark
 	color wombat256
@@ -311,7 +313,7 @@ fun SetupVAM()
   " commenting try .. endtry because trace is lost if you use it.
   " There should be no exception anyway
   " try
-    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Conque_Shell', 'Mark%2666', 'fugitive', 'VisIncr', 'dbext', 'verilog_systemverilog', 'verilog', 'perl-support', 'bash-support', 'Vim-Support', 'perlomni', 'perlhelp', 'pythoncomplete', 'Pydiction', 'pydoc%910', 'CCTree', 'xml', 'The_NERD_Commenter', 'simple_bookmarks', 'ccvext', 'Visual_Mark', 'YankRing', 'colorselector', 'moria', 'hexman', 'Powerline', 'current-func-info', 'StatusLineHighlight', 'vcscommand', 'AutoComplPop', 'simplefold', 'clang_complete', 'DoxygenToolkit', 'VikiDeplate', 'vikitasks', 'tlib', 'VimOrganizer' ], {'auto_install' : 0})
+    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Conque_Shell', 'Mark%2666', 'fugitive', 'VisIncr', 'dbext', 'verilog_systemverilog', 'verilog', 'perl-support', 'bash-support', 'Vim-Support', 'perlomni', 'perlhelp', 'pythoncomplete', 'Pydiction', 'pydoc%910', 'CCTree', 'xml', 'The_NERD_Commenter', 'simple_bookmarks', 'ccvext', 'Visual_Mark', 'YankRing', 'colorselector', 'moria', 'hexman', 'Powerline', 'current-func-info', 'StatusLineHighlight', 'vcscommand', 'AutoComplPop', 'simplefold', 'clang_complete', 'DoxygenToolkit', 'VikiDeplate', 'vikitasks', 'tlib', 'VimOrganizer', 'vim-flake8', 'TxtBrowser' ], {'auto_install' : 0})
 "    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Conque_Shell', 'Mark%2666', 'fugitive', 'VisIncr', 'dbext', 'verilog_systemverilog', 'verilog', 'perl-support', 'bash-support', 'Vim-Support', 'AutoComplPop', 'perlomni', 'perlhelp', 'pythoncomplete', 'Pydiction', 'pydoc%910', 'CCTree', 'xml', 'The_NERD_Commenter', 'simple_bookmarks', 'ccvext', 'Visual_Mark', 'YankRing', 'colorselector', 'vimbuddy%8', 'ifdef_highlighting', 'echofunc', 'moria', 'hexman', 'statusline', 'Powerline', 'current-func-info', 'StatusLineHighlight', 'AutoFold', 'vcscommand'], {'auto_install' : 0})
     " pluginA could be github:YourName see vam#install#RewriteName()
   " catch /.*/
@@ -645,3 +647,9 @@ au BufEnter *.org            call org#SetOrgFileType()
 " let g:org_capture_file = '~/org_files/mycaptures.org'
 command! OrgCapture :call org#CaptureBuffer()
 command! OrgCaptureFile :call org#OpenCaptureFile()
+
+
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" TxtBrowser settings
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+au BufEnter *.txt setlocal ft=txt
