@@ -108,6 +108,8 @@ if has("gui_running")
 	set guioptions-=m
     " do not show tool bars
     set guioptions-=T
+    set guioptions+=LlRrb
+    set guioptions-=LlRrb
 	set t_Co=256
 	set background=dark
 	color wombat256
