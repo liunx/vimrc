@@ -214,6 +214,9 @@ set completeopt=menuone,menu,longest,preview
 " python language settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 autocmd FileType python setlocal et sta sw=4 sts=4
+autocmd FileType python setlocal foldmethod=indent
+" 默认展开所有代码
+set foldlevel=99
 
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
