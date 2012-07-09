@@ -315,8 +315,7 @@ fun SetupVAM()
   " commenting try .. endtry because trace is lost if you use it.
   " There should be no exception anyway
   " try
-    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Conque_Shell', 'Mark%2666', 'fugitive', 'VisIncr', 'dbext', 'verilog_systemverilog', 'verilog', 'perl-support', 'bash-support', 'Vim-Support', 'perlomni', 'perlhelp', 'pythoncomplete', 'Pydiction', 'pydoc%910', 'CCTree', 'xml', 'The_NERD_Commenter', 'simple_bookmarks', 'ccvext', 'Visual_Mark', 'YankRing', 'colorselector', 'moria', 'hexman', 'Powerline', 'current-func-info', 'StatusLineHighlight', 'vcscommand', 'AutoComplPop', 'simplefold', 'clang_complete', 'DoxygenToolkit', 'VikiDeplate', 'vikitasks', 'tlib', 'VimOrganizer', 'vim-flake8', 'TxtBrowser', 'JavaScript_syntax' ], {'auto_install' : 0})
-"    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Conque_Shell', 'Mark%2666', 'fugitive', 'VisIncr', 'dbext', 'verilog_systemverilog', 'verilog', 'perl-support', 'bash-support', 'Vim-Support', 'AutoComplPop', 'perlomni', 'perlhelp', 'pythoncomplete', 'Pydiction', 'pydoc%910', 'CCTree', 'xml', 'The_NERD_Commenter', 'simple_bookmarks', 'ccvext', 'Visual_Mark', 'YankRing', 'colorselector', 'vimbuddy%8', 'ifdef_highlighting', 'echofunc', 'moria', 'hexman', 'statusline', 'Powerline', 'current-func-info', 'StatusLineHighlight', 'AutoFold', 'vcscommand'], {'auto_install' : 0})
+    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Conque_Shell', 'Mark%2666', 'fugitive', 'VisIncr', 'dbext', 'verilog_systemverilog', 'verilog', 'perl-support', 'bash-support', 'Vim-Support', 'perlomni', 'perlhelp', 'pythoncomplete', 'Pydiction', 'pydoc%910', 'CCTree', 'xml', 'The_NERD_Commenter', 'simple_bookmarks', 'ccvext', 'Visual_Mark', 'YankRing', 'colorselector', 'moria', 'hexman', 'Powerline', 'current-func-info', 'StatusLineHighlight', 'vcscommand', 'AutoComplPop', 'simplefold', 'clang_complete', 'DoxygenToolkit', 'VikiDeplate', 'vikitasks', 'tlib', 'VimOrganizer', 'vim-flake8', 'TxtBrowser', 'JavaScript_syntax', 'neocomplcache', 'neocomplcache-snippets-complete', 'matchit.zip', 'smartword', 'MatchTag', 'matchparen' ], {'auto_install' : 0})
     " pluginA could be github:YourName see vam#install#RewriteName()
   " catch /.*/
   "  echoe v:exception
@@ -666,3 +665,168 @@ let javascript_enable_domhtmlcss=1
 
 autocmd FileType javascript setlocal et sta sw=4 sts=4
 autocmd FileType html setlocal et sta sw=4 sts=4
+
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" cooldaemon settings
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+set backupdir=~/.vimbackup
+let &directory = &backupdir
+
+set shortmess+=I
+set cmdheight=1
+set hidden
+set history=256
+set diffopt=filler,icase,iwhite
+
+if exists('+relativenumber')
+  set rnu
+else
+  set nonu
+endif
+
+if has('persistent_undo')
+  set undodir=~/.vimundo
+  set undofile
+endif
+
+set listchars=tab:>_,trail:.
+"set listchars=tab:>_,trail:.,eol:$
+set list
+"nmap <silent> <leader>s :set nolist!<CR>
+
+"==<complete>===============================================================
+set completeopt=menu,preview,menuone
+set isfname-=-
+set complete=.,w,b,u,t,i
+
+set omnifunc=syntaxcomplete#Complete
+
+imap <C-o> <C-x><C-o>
+imap <C-l> <C-x><C-l>
+
+"==<tab>====================================================================
+
+highlight TabLine term=reverse cterm=reverse ctermfg=white ctermbg=black
+highlight TabLineSel term=bold cterm=bold,underline ctermfg=5
+highlight TabLineFill term=reverse cterm=reverse ctermfg=white ctermbg=black
+
+"==<pair>===================================================================
+set showmatch
+
+inoremap ( ()<ESC>i
+inoremap { {}<ESC>i
+inoremap [ <C-R>=AddPair('[')<CR>
+inoremap < <C-R>=AddPair('<')<CR>
+
+fun! AddPair(char)
+  if a:char == '['
+    if &syntax == 'tt2html'
+      return "[%%]\<LEFT>\<LEFT>"
+    else
+      return "[]\<LEFT>"
+    endif
+  elseif a:char == '<'
+    if &syntax == 'html' || &syntax == 'xhtml' || &syntax == 'tt2html' || &syntax == 'eruby' || &syntax == 'vim'
+      return "<>\<LEFT>"
+    else
+      return '<'
+    endif
+  endif
+endf
+
+inoremap ) <C-R>=ClosePair(')')<CR>
+inoremap } <C-R>=ClosePair('}')<CR>
+inoremap ] <C-R>=ClosePair(']')<CR>
+inoremap > <C-R>=ClosePairHtml('>')<CR>
+
+fun! ClosePair(char)
+  if getline('.')[col('.') - 1] == a:char
+    return "\<RIGHT>"
+  else
+    return a:char
+  endif
+endf
+
+fun! ClosePairHtml(char)
+  if &syntax == 'html' || &syntax == 'xhtml' || &syntax == 'tt2html' || &syntax == 'eruby' || &syntax == 'vim'
+    return ClosePair(a:char)
+  else
+    return a:char
+  endif
+endf
+
+nmap ( csw(
+nmap { csw{
+nmap [ csw[
+
+nmap ' csw'
+nmap " csw"
+
+"smartword
+map w  <Plug>(smartword-w)
+map b  <Plug>(smartword-b)
+map e  <Plug>(smartword-e)
+map ge <Plug>(smartword-ge)
+
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+"neocomplcache
+imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_plugin_completion_length = {
+  \ 'buffer_complete'   : 2,
+  \ 'include_complete'  : 2,
+  \ 'syntax_complete'   : 2,
+  \ 'filename_complete' : 2,
+  \ 'keyword_complete'  : 2,
+  \ 'omni_complete'     : 1
+  \ }
+let g:neocomplcache_min_keyword_length = 3
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_dictionary_filetype_lists = {
+  \ 'default'    : '',
+  \ 'erlang'     : $HOME . '/.vim/dict/erlang.dict',
+  \ 'objc'       : $HOME . '/.vim/dict/objc.dict',
+  \ 'javascript' : $HOME . '/.vim/dict/javascript.dict',
+  \ 'mxml'       : $HOME . '/.vim/dict/mxml.dict',
+  \ 'ruby'       : $HOME . '/.vim/dict/ruby.dict',
+  \ 'perl'       : $HOME . '/.vim/dict/perl.dict',
+  \ 'scheme'     : $HOME . '/.vim/dict/gauche.dict',
+  \ 'scala'      : $HOME . '/.vim/dict/scala.dict',
+  \ 'int-erl'    : $HOME . '/.vim/dict/erlang.dict',
+  \ 'int-irb'    : $HOME . '/.vim/dict/ruby.dict',
+  \ 'int-perlsh' : $HOME . '/.vim/dict/perl.dict'
+  \ }
+let g:neocomplcache_same_filetype_lists = {
+  \ 'c'          : 'ref-man,ref-erlang',
+  \ 'perl'       : 'ref-perldoc',
+  \ 'ruby'       : 'ref-refe',
+  \ 'erlang'     : 'ref-erlang',
+  \ 'objc'       : 'c',
+  \ 'tt2html'    : 'html,perl',
+  \ 'int-erl'    : 'erlang,ref-erlang',
+  \ 'int-perlsh' : 'perl,ref-perldoc',
+  \ 'int-irb'    : 'ruby,ref-refe'
+  \ }
+let g:neocomplcache_snippets_dir = $HOME . '/.vim/snippets'
+
+fun! Filename(...)
+  let filename = expand('%:t:r')
+  if filename == '' | return a:0 == 2 ? a:2 : '' | endif
+  return !a:0 || a:1 == '' ? filename : substitute(a:1, '$1', filename, 'g')
+endf
+
+fun! Close()
+  return stridx(&ft, 'xhtml') == -1 ? '' : ' /'
+endf
+
+autocmd BufFilePost \[ref-* silent execute ":NeoComplCacheCachingBuffer"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
