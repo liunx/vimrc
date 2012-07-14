@@ -138,7 +138,7 @@ if has("gui_running")
     set guioptions-=LlRrb
 	set t_Co=256
 	set background=dark
-	color wombat256
+	colorscheme wombat256
 else
 	color delek
 endif
@@ -211,7 +211,7 @@ highlight Folded guibg=grey guifg=blue
 highlight FoldColumn guibg=darkgrey guifg=white
 
 " pop menu settings
-highlight Pmenu guibg=black guifg=yellow gui=bold
+"highlight Pmenu guibg=black guifg=yellow gui=bold
 
 " detail please press ":help completeopt"
 set completeopt=menu,preview,menuone
@@ -347,14 +347,14 @@ fun SetupVAM()
   exec 'set runtimepath+='.addons_base.'/vim-addon-manager'
 
   " unix based os users may want to use this code checking out VAM
-  " if !isdirectory(addons_base)
-  "   exec '!p='.shellescape(addons_base).'; mkdir -p "$p" && cd "$p" && git clone git://github.com/MarcWeber/vim-addon-manager.git'
-  " endif
+  if !isdirectory(addons_base)
+    exec '!p='.shellescape(addons_base).'; mkdir -p "$p" && cd "$p" && git clone git://github.com/MarcWeber/vim-addon-manager.git'
+  endif
 
   " commenting try .. endtry because trace is lost if you use it.
   " There should be no exception anyway
   " try
-    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Conque_Shell', 'Mark%2666', 'fugitive', 'VisIncr', 'dbext', 'verilog_systemverilog', 'verilog', 'perl-support', 'bash-support', 'Vim-Support', 'perlomni', 'perlhelp', 'pythoncomplete', 'Pydiction', 'pydoc%910', 'CCTree', 'xml', 'The_NERD_Commenter', 'simple_bookmarks', 'ccvext', 'Visual_Mark', 'YankRing', 'colorselector', 'moria', 'hexman', 'Powerline', 'current-func-info', 'StatusLineHighlight', 'vcscommand', 'AutoComplPop', 'simplefold', 'clang_complete', 'DoxygenToolkit', 'VikiDeplate', 'vikitasks', 'tlib', 'VimOrganizer', 'vim-flake8', 'TxtBrowser', 'JavaScript_syntax', 'neocomplcache', 'neocomplcache-snippets-complete', 'smartword', 'MatchTag', 'matchparen' ], {'auto_install' : 0})
+    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Conque_Shell', 'Mark%2666', 'fugitive', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'CCTree', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'Powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'neocomplcache', 'neocomplcache-snippets_complete', 'smartword', 'MatchTag', 'matchparen', 'unite' ], {'auto_install' : 0})
     " pluginA could be github:YourName see vam#install#RewriteName()
   " catch /.*/
   "  echoe v:exception
@@ -496,17 +496,6 @@ endfunction
 " map this function
 nnoremap <silent> <Leader>ff	:call ExFuzzyFinder()<CR>
 
-
-" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-" sessionman settings
-" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-"nnoremap <silent><C-s>o :execute "SessionOpen" . input(":")<CR>
-"nnoremap <silent><C-s>s :SessionSave<CR>
-"nnoremap <silent><C-s>a :SessionSaveAs<CR>
-"nnoremap <silent><C-s>c :SessionClose<CR>
-"nnoremap <silent><C-s>l :SessionList<CR>
-
-
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " ConqueTerm settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -522,15 +511,6 @@ nnoremap <silent> <Leader>ctb :ConqueTerm bash<CR>
 nnoremap <silent> <Leader>cts :ConqueTermSplit bash<CR>
 nnoremap <silent> <Leader>ctv :ConqueTermVSplit bash<CR>
 nnoremap <silent> <Leader>ctt :ConqueTermTab bash<CR>
-
-
-" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-" dbext settings
-" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-"let g:dbext_default_profile_201 = 'type=MYSQL:user=root:passwd=123456:extra=--default-character-set=utf8:dbname=enterprise:host=192.168.1.201:port=3306'
-"let g:dbext_default_profile_76 = 'type=MYSQL:user=enet:passwd=123456:extra=--default-character-set=utf8:dbname=public:host=218.29.188.76:port=3306'
-"let g:dbext_default_profile_52 = 'type=MYSQL:user=root:passwd=root@mysql@218.29.188.52@enet:extra=--default-character-set=utf8:dbname=enet:host=218.29.188.52:port=3306'
-
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " search for visually selected text
@@ -667,32 +647,6 @@ autocmd FileType vim set tabstop=4 shiftwidth=4 expandtab
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 nnoremap <silent> <C-x>dx :Dox<CR>
 
-
-" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-" VimOrganizer settings
-" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-" This is an example vimrc that should work for testing purposes.
-" Integrate the VimOrganizer specific sections into your own
-" vimrc if you wish to use VimOrganizer on a regular basis. . .
-
-"===================================================================
-" THE NECESSARY STUFF
-" The three lines below are necessary for VimOrganizer to work right
-" ==================================================================
-let g:org_command_for_emacsclient = 'emacsclient'
-let g:ft_ignore_pat = '\.org'
-let g:org_agenda_select_dirs=["~/desktop/org_files"]
-let g:org_agenda_files = split(glob("~/desktop/org_files/org-mod*.org"),"\n")
-
-filetype plugin indent on
-" and then put these lines in vimrc somewhere after the line above
-au! BufRead,BufWrite,BufWritePost,BufNewFile *.org 
-au BufEnter *.org            call org#SetOrgFileType()
-" let g:org_capture_file = '~/org_files/mycaptures.org'
-command! OrgCapture :call org#CaptureBuffer()
-command! OrgCaptureFile :call org#OpenCaptureFile()
-
-
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " TxtBrowser settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -709,3 +663,105 @@ let javascript_enable_domhtmlcss=1
 autocmd FileType javascript setlocal et sta sw=4 sts=4
 autocmd FileType html setlocal et sta sw=4 sts=4
 
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" project settings
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+nmap <silent><Leader>p <Plug>ToggleProject<CR>
+
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" unite settings
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+nmap ;; :Unite 
+nmap ;s :Unite source<CR>
+nmap ;b :Unite buffer<CR>
+nmap ;f :Unite file<CR>
+nmap ;r :Unite ref/
+nmap ;q :Unite qf<CR>
+nmap ;/ :grep  \| Unite qf<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" smarkword settings
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+map w  <Plug>(smartword-w)
+map b  <Plug>(smartword-b)
+map e  <Plug>(smartword-e)
+map ge <Plug>(smartword-ge)
+
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" neocomplcache settings
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
+" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+  \ 'default'    : '',
+  \ 'erlang'     : $HOME . '/.vim/dict/erlang.dict',
+  \ 'objc'       : $HOME . '/.vim/dict/objc.dict',
+  \ 'javascript' : $HOME . '/.vim/dict/javascript.dict',
+  \ 'mxml'       : $HOME . '/.vim/dict/mxml.dict',
+  \ 'ruby'       : $HOME . '/.vim/dict/ruby.dict',
+  \ 'perl'       : $HOME . '/.vim/dict/perl.dict',
+  \ 'scheme'     : $HOME . '/.vim/dict/gauche.dict',
+  \ 'scala'      : $HOME . '/.vim/dict/scala.dict',
+  \ 'int-erl'    : $HOME . '/.vim/dict/erlang.dict',
+  \ 'int-irb'    : $HOME . '/.vim/dict/ruby.dict',
+  \ 'int-perlsh' : $HOME . '/.vim/dict/perl.dict'
+  \ }
+
+" Define keyword.
+if !exists('g:neocomplcache_keyword_patterns')
+  let g:neocomplcache_keyword_patterns = {}
+endif
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+" inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+" AutoComplPop like behavior.
+let g:neocomplcache_enable_auto_select = 1
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
