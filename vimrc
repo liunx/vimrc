@@ -1,13 +1,15 @@
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2008 Dec 17
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
+" ===========================================================================
+"                               liunx's VIMRC
+" Author:       Lei Liu <liu163@163.com>
+" 
+" Instruction:  This vimrc file is used for c/c++ and many other script based
+"               languages like perl, python, javascript etc.
+" ===========================================================================
+
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" vim based settings
+" these settings just care about the vim-self based settings.
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
@@ -24,15 +26,42 @@ set backspace=indent,eol,start
 if has("vms")
   set nobackup		" do not keep a backup file, use versions instead
 else
-  set nobackup		" keep a backup file
+  set backup		" keep a backup file
 endif
-set history=50		" keep 50 lines of command line history
+
+" we should point out a backupdir rather that let vim write backup file
+" in your current edit area, that's make thing mess.
+if !isdirectory($HOME . "/.vimbackup")
+    call mkdir($HOME . "/.vimbackup")
+endif
+set backupdir=~/.vimbackup
+let &directory = &backupdir
+
+" undo directory and file settings
+if has('persistent_undo')
+    if !isdirectory($HOME . "/.vimundo")
+        call mkdir($HOME . "/.vimundo")
+    endif
+    set undodir=~/.vimundo
+    set undofile
+endif
+" do not give the intro when you type :intro
+set shortmess+=I
+" set the command line below the statusline to just 1, that's enough for us.
+set cmdheight=1
+
+" A hidden buffer is a buffer with some unsaved modifications and is not 
+" displayed in a window. Hidden buffers are useful, if you want to edit
+" multiple buffers without saving the modifications made to a buffer while 
+" loading other buffers. 
+set hidden
+set history=256		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
 
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
+" diff mode settings
+set diffopt=filler,icase,iwhite
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -95,9 +124,6 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
-" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-" custom settings
-" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " gnome-vim settings
 " We have to use gvim sometimes, because the vim keys maps may have a 
 " conflict with gnome-terminal's key maps, or any other parent shell 
@@ -117,23 +143,35 @@ else
 	color delek
 endif
 
-set nu
+" we may prefer relativenumber that number
+if exists('+relativenumber')
+    set relativenumber
+else
+set number
+endif
 
-" encoding settings
+" XXX encoding settings XXX
 "
 set encoding=utf-8
 set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1 
 " 如果你要打开的文件编码不在此列，那就添加进去
 set termencoding=utf-8
 
-
-" set spell checking
-"set spell
-" set map leader
+" XXX the mapleader i prefer ","
 let mapleader = ","
 
-" set cursor line 
+" XXX searching settings
+set magic
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+" Highlight the screen line of the cursor with CursorLine
 set cursorline
+set cursorcolumn
+hi CursorLine ctermbg=235 cterm=None
+hi CursorColumn ctermbg=235
 
 " auto reload our vimrc file
 " It's better not to use auto save, or we'll always stuck there
@@ -148,28 +186,23 @@ nnoremap <silent> <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 
 " first, enable status line always
 set laststatus=2
+set wildmode=list:full
+" the wildmenu will highlight what you chose in the status line.
+set wildmenu
+set scrolloff=0
+
+" By default whitespace will be hidden, but now it can be toggled with ,s.
+" it's useful for us to see whether lines are aligned
+set listchars=tab:--,trail:·,eol:$
+nmap <silent> <leader>s :set nolist!<CR>
+
+"uswitch among e.g. if/elsif/else/end, between opening and closing XML tags, and more
+" matchit has been included in vim distribution
+runtime macros/matchit.vim
+
 " set the status line 
-set stl=<liunx>\ %f\ %m\ %r\ Line:%l/%L[%p%%]\ Col:%c\ Buf:%n\ [%b][0x%B]
-" now set it up to change the status line based on mode
-"if version >= 700
-"  au InsertEnter * hi StatusLine term=reverse ctermbg=5 gui=undercurl guisp=Magenta
-"  au InsertLeave * hi StatusLine term=reverse ctermfg=0 ctermbg=2 gui=bold,reverse
-"endif
-function! InsertStatuslineColor(mode)
-  if a:mode == 'i'
-    hi statusline guibg=magenta
-  elseif a:mode == 'r'
-    hi statusline guibg=blue
-  else
-    hi statusline guibg=red
-  endif
-endfunction
-
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline guibg=blue
-
-" default the statusline to green when entering Vim
-hi statusline guibg=green
+" XXX we'll use powerline plugin instead
+"set statusline=<liunx>\ %f\ %m\ %r\ Line:%l/%L[%p%%]\ Col:%c\ Buf:%n\ [%b][0x%B]
 
 " folding settings
 "set foldmethod=manual
@@ -179,6 +212,12 @@ highlight FoldColumn guibg=darkgrey guifg=white
 
 " pop menu settings
 highlight Pmenu guibg=black guifg=yellow gui=bold
+
+" detail please press ":help completeopt"
+set completeopt=menu,preview,menuone
+" XXX isfname
+set isfname-=-
+set complete=.,w,b,u,t,i
 
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " Map tab(edit) keys
@@ -196,9 +235,13 @@ nnoremap <silent> <Tab>f :tabfirst<CR>
 nnoremap <silent> <Tab>e :tablast<CR>
 nnoremap <silent> <Tab>d :execute "tabdo " . input(":")<CR>
 
+" XXX it seems that it's just work in terminal
+highlight TabLine term=reverse cterm=reverse ctermfg=white ctermbg=black
+highlight TabLineSel term=bold cterm=bold,underline ctermfg=5
+highlight TabLineFill term=reverse cterm=reverse ctermfg=white ctermbg=black
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-" omnicppcomplete settings
+" omnicppcomplete settings XXX DO WE NEED IT ANY MORE? XXX
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 set tags+=~/.vim/tags/cpp
 let OmniCpp_NamespaceSearch = 1
@@ -211,17 +254,12 @@ let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 " automatically open and close the popup menu / preview window
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-set completeopt=menuone,menu,longest,preview
-
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " python language settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 autocmd FileType python setlocal et sta sw=4 sts=4
 autocmd FileType python setlocal foldmethod=indent
-" 默认展开所有代码
-set foldlevel=99
-
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " cscope settings
@@ -298,8 +336,9 @@ nnoremap <silent> <Leader>stj :execute "stjump " .  expand("<cword>")<CR>
 " we can find tags with this keymap
 nnoremap <silent> <Leader>sts :execute "stselect " . input(":")<CR>
 
-set tags+=$HOME/Work/Broadcom/tags
-
+" =============================================================================
+"                  XXX  SETTINGS FOR PLUGINS  XXX
+"
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " Vim addons manager settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -315,7 +354,7 @@ fun SetupVAM()
   " commenting try .. endtry because trace is lost if you use it.
   " There should be no exception anyway
   " try
-    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Conque_Shell', 'Mark%2666', 'fugitive', 'VisIncr', 'dbext', 'verilog_systemverilog', 'verilog', 'perl-support', 'bash-support', 'Vim-Support', 'perlomni', 'perlhelp', 'pythoncomplete', 'Pydiction', 'pydoc%910', 'CCTree', 'xml', 'The_NERD_Commenter', 'simple_bookmarks', 'ccvext', 'Visual_Mark', 'YankRing', 'colorselector', 'moria', 'hexman', 'Powerline', 'current-func-info', 'StatusLineHighlight', 'vcscommand', 'AutoComplPop', 'simplefold', 'clang_complete', 'DoxygenToolkit', 'VikiDeplate', 'vikitasks', 'tlib', 'VimOrganizer', 'vim-flake8', 'TxtBrowser', 'JavaScript_syntax', 'neocomplcache', 'neocomplcache-snippets-complete', 'matchit.zip', 'smartword', 'MatchTag', 'matchparen' ], {'auto_install' : 0})
+    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Conque_Shell', 'Mark%2666', 'fugitive', 'VisIncr', 'dbext', 'verilog_systemverilog', 'verilog', 'perl-support', 'bash-support', 'Vim-Support', 'perlomni', 'perlhelp', 'pythoncomplete', 'Pydiction', 'pydoc%910', 'CCTree', 'xml', 'The_NERD_Commenter', 'simple_bookmarks', 'ccvext', 'Visual_Mark', 'YankRing', 'colorselector', 'moria', 'hexman', 'Powerline', 'current-func-info', 'StatusLineHighlight', 'vcscommand', 'AutoComplPop', 'simplefold', 'clang_complete', 'DoxygenToolkit', 'VikiDeplate', 'vikitasks', 'tlib', 'VimOrganizer', 'vim-flake8', 'TxtBrowser', 'JavaScript_syntax', 'neocomplcache', 'neocomplcache-snippets-complete', 'smartword', 'MatchTag', 'matchparen' ], {'auto_install' : 0})
     " pluginA could be github:YourName see vam#install#RewriteName()
   " catch /.*/
   "  echoe v:exception
@@ -640,7 +679,11 @@ nnoremap <silent> <C-x>dx :Dox<CR>
 " THE NECESSARY STUFF
 " The three lines below are necessary for VimOrganizer to work right
 " ==================================================================
+let g:org_command_for_emacsclient = 'emacsclient'
 let g:ft_ignore_pat = '\.org'
+let g:org_agenda_select_dirs=["~/desktop/org_files"]
+let g:org_agenda_files = split(glob("~/desktop/org_files/org-mod*.org"),"\n")
+
 filetype plugin indent on
 " and then put these lines in vimrc somewhere after the line above
 au! BufRead,BufWrite,BufWritePost,BufNewFile *.org 
@@ -666,167 +709,3 @@ let javascript_enable_domhtmlcss=1
 autocmd FileType javascript setlocal et sta sw=4 sts=4
 autocmd FileType html setlocal et sta sw=4 sts=4
 
-" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-" cooldaemon settings
-" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-set backupdir=~/.vimbackup
-let &directory = &backupdir
-
-set shortmess+=I
-set cmdheight=1
-set hidden
-set history=256
-set diffopt=filler,icase,iwhite
-
-if exists('+relativenumber')
-  set rnu
-else
-  set nonu
-endif
-
-if has('persistent_undo')
-  set undodir=~/.vimundo
-  set undofile
-endif
-
-set listchars=tab:>_,trail:.
-"set listchars=tab:>_,trail:.,eol:$
-set list
-"nmap <silent> <leader>s :set nolist!<CR>
-
-"==<complete>===============================================================
-set completeopt=menu,preview,menuone
-set isfname-=-
-set complete=.,w,b,u,t,i
-
-set omnifunc=syntaxcomplete#Complete
-
-imap <C-o> <C-x><C-o>
-imap <C-l> <C-x><C-l>
-
-"==<tab>====================================================================
-
-highlight TabLine term=reverse cterm=reverse ctermfg=white ctermbg=black
-highlight TabLineSel term=bold cterm=bold,underline ctermfg=5
-highlight TabLineFill term=reverse cterm=reverse ctermfg=white ctermbg=black
-
-"==<pair>===================================================================
-set showmatch
-
-inoremap ( ()<ESC>i
-inoremap { {}<ESC>i
-inoremap [ <C-R>=AddPair('[')<CR>
-inoremap < <C-R>=AddPair('<')<CR>
-
-fun! AddPair(char)
-  if a:char == '['
-    if &syntax == 'tt2html'
-      return "[%%]\<LEFT>\<LEFT>"
-    else
-      return "[]\<LEFT>"
-    endif
-  elseif a:char == '<'
-    if &syntax == 'html' || &syntax == 'xhtml' || &syntax == 'tt2html' || &syntax == 'eruby' || &syntax == 'vim'
-      return "<>\<LEFT>"
-    else
-      return '<'
-    endif
-  endif
-endf
-
-inoremap ) <C-R>=ClosePair(')')<CR>
-inoremap } <C-R>=ClosePair('}')<CR>
-inoremap ] <C-R>=ClosePair(']')<CR>
-inoremap > <C-R>=ClosePairHtml('>')<CR>
-
-fun! ClosePair(char)
-  if getline('.')[col('.') - 1] == a:char
-    return "\<RIGHT>"
-  else
-    return a:char
-  endif
-endf
-
-fun! ClosePairHtml(char)
-  if &syntax == 'html' || &syntax == 'xhtml' || &syntax == 'tt2html' || &syntax == 'eruby' || &syntax == 'vim'
-    return ClosePair(a:char)
-  else
-    return a:char
-  endif
-endf
-
-nmap ( csw(
-nmap { csw{
-nmap [ csw[
-
-nmap ' csw'
-nmap " csw"
-
-"smartword
-map w  <Plug>(smartword-w)
-map b  <Plug>(smartword-b)
-map e  <Plug>(smartword-e)
-map ge <Plug>(smartword-ge)
-
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-"neocomplcache
-imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_plugin_completion_length = {
-  \ 'buffer_complete'   : 2,
-  \ 'include_complete'  : 2,
-  \ 'syntax_complete'   : 2,
-  \ 'filename_complete' : 2,
-  \ 'keyword_complete'  : 2,
-  \ 'omni_complete'     : 1
-  \ }
-let g:neocomplcache_min_keyword_length = 3
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_dictionary_filetype_lists = {
-  \ 'default'    : '',
-  \ 'erlang'     : $HOME . '/.vim/dict/erlang.dict',
-  \ 'objc'       : $HOME . '/.vim/dict/objc.dict',
-  \ 'javascript' : $HOME . '/.vim/dict/javascript.dict',
-  \ 'mxml'       : $HOME . '/.vim/dict/mxml.dict',
-  \ 'ruby'       : $HOME . '/.vim/dict/ruby.dict',
-  \ 'perl'       : $HOME . '/.vim/dict/perl.dict',
-  \ 'scheme'     : $HOME . '/.vim/dict/gauche.dict',
-  \ 'scala'      : $HOME . '/.vim/dict/scala.dict',
-  \ 'int-erl'    : $HOME . '/.vim/dict/erlang.dict',
-  \ 'int-irb'    : $HOME . '/.vim/dict/ruby.dict',
-  \ 'int-perlsh' : $HOME . '/.vim/dict/perl.dict'
-  \ }
-let g:neocomplcache_same_filetype_lists = {
-  \ 'c'          : 'ref-man,ref-erlang',
-  \ 'perl'       : 'ref-perldoc',
-  \ 'ruby'       : 'ref-refe',
-  \ 'erlang'     : 'ref-erlang',
-  \ 'objc'       : 'c',
-  \ 'tt2html'    : 'html,perl',
-  \ 'int-erl'    : 'erlang,ref-erlang',
-  \ 'int-perlsh' : 'perl,ref-perldoc',
-  \ 'int-irb'    : 'ruby,ref-refe'
-  \ }
-let g:neocomplcache_snippets_dir = $HOME . '/.vim/snippets'
-
-fun! Filename(...)
-  let filename = expand('%:t:r')
-  if filename == '' | return a:0 == 2 ? a:2 : '' | endif
-  return !a:0 || a:1 == '' ? filename : substitute(a:1, '$1', filename, 'g')
-endf
-
-fun! Close()
-  return stridx(&ft, 'xhtml') == -1 ? '' : ' /'
-endf
-
-autocmd BufFilePost \[ref-* silent execute ":NeoComplCacheCachingBuffer"
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
