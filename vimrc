@@ -354,7 +354,7 @@ fun SetupVAM()
   " commenting try .. endtry because trace is lost if you use it.
   " There should be no exception anyway
   " try
-    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Conque_Shell', 'Mark%2666', 'fugitive', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'CCTree', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'Powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'neocomplcache', 'neocomplcache-snippets_complete', 'smartword', 'MatchTag', 'matchparen', 'unite' ], {'auto_install' : 0})
+    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Mark%2666', 'fugitive', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'CCTree', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'Powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'neocomplcache', 'neocomplcache-snippets_complete', 'smartword', 'MatchTag', 'matchparen', 'unite' ], {'auto_install' : 0})
     " pluginA could be github:YourName see vam#install#RewriteName()
   " catch /.*/
   "  echoe v:exception
@@ -502,15 +502,15 @@ nnoremap <silent> <Leader>ff	:call ExFuzzyFinder()<CR>
 " Python version
 "let g:ConqueTerm_PyVersion = 2
 " Color Support
-let g:ConqueTerm_Color = 1
+"let g:ConqueTerm_Color = 1
 " Session Support
-let g:ConqueTerm_SessionSupport = 1
+"let g:ConqueTerm_SessionSupport = 1
 " Keep updating terminal buffer 
-let g:ConqueTerm_ReadUnfocused = 1
-nnoremap <silent> <Leader>ctb :ConqueTerm bash<CR>
-nnoremap <silent> <Leader>cts :ConqueTermSplit bash<CR>
-nnoremap <silent> <Leader>ctv :ConqueTermVSplit bash<CR>
-nnoremap <silent> <Leader>ctt :ConqueTermTab bash<CR>
+"let g:ConqueTerm_ReadUnfocused = 1
+"nnoremap <silent> <Leader>ctb :ConqueTerm bash<CR>
+"nnoremap <silent> <Leader>cts :ConqueTermSplit bash<CR>
+"nnoremap <silent> <Leader>ctv :ConqueTermVSplit bash<CR>
+"nnoremap <silent> <Leader>ctt :ConqueTermTab bash<CR>
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " search for visually selected text
