@@ -11,6 +11,12 @@
 ;; don't display scroll bar
 (scroll-bar-mode -1)
 
+(require 'color-theme)
+(eval-after-load "color-theme"
+		 '(progn
+		    (color-theme-initialize)
+		    (color-theme-hober)))
+
 ;; turn on ido mode easy for file dir search
 (require 'ido)
 (ido-mode t)
