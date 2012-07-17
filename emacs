@@ -15,6 +15,7 @@
 (require 'ido)
 (ido-mode t)
 
+(add-to-list 'load-path "~/.emacs.d/")
 ;; ==========================================================================
 ;; color-theme select settings
 ;; ==========================================================================
@@ -139,3 +140,24 @@
 (require 'mime-w3m) 
 (setq w3m-default-display-inline-image t) 
 (setq w3m-default-toggle-inline-images t)
+
+;; ==========================================================================
+;; vimpulse settings
+;; ==========================================================================
+(require 'vimpulse)
+
+;; ==========================================================================
+;; vimpulse settings
+;; ==========================================================================
+(require 'undo-tree)
+
+;; detail see the undo-tree.el comments
+(undo-tree-mode)
+(global-undo-tree-mode)
+
+;; ==========================================================================
+;; emms settings
+;; ==========================================================================
+(require 'emms-setup)
+(emms-standard)
+(emms-default-players)
