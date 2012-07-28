@@ -18,9 +18,15 @@
 
 ;; undo-tree
 (require 'undo-tree)
-(global-undo-tree-mode)
+;; (global-undo-tree-mode)
 
 (require 'emms-setup)
 (emms-standard)
 (emms-default-players)
 
+;; tabbar-ruler
+;; (setq tabbar-ruler-global-tabbar 't) ; If you want tabbar
+;; (setq tabbar-ruler-global-ruler 't) ; If you want a global ruler
+;; (setq tabbar-ruler-popup-menu 't) ; If you want a popup menu
+;; (setq tabbar-ruler-popup-toolbar 't) ; If you want a popup toolbar
+;; (require 'tabbar-ruler)

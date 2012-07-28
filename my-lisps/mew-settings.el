@@ -1,10 +1,6 @@
 ;; ==========================================================================
 ;; mew settings
 ;; ==========================================================================
-;; vew html mail in mew, but how about picture?
-(require 'mew-w3m)
-(auto-image-file-mode t)
-
 (autoload 'mew "mew" nil t)
 (autoload 'mew-send "mew" nil t)
 ;; Optional setup (Read Mail menu for Emacs 21):
@@ -21,26 +17,56 @@
 	  'mew-draft-send-message
 	  'mew-draft-kill
 	  'mew-send-hook))
-(setq mew-use-cached-passwd	t)
-;; mew-pop-size设置成0时，pop邮件大小没有限制
 (setq mew-pop-size 0)
-;; 不删除服务器上的邮件
+;;(setq mew-imap-prefix-list '("#mh/" "#mhinbox"))
+;;(setq mew-auto-get t)
+(setq toolbar-mail-reader 'Mew)
+(setq mew-use-cached-passwd t)
+(setq mew-passwd-timer-unit 999)
+(setq mew-passwd-lifetime 999)
+(set-default 'mew-decode-quoted 't)  
+(setq mew-prog-pgp "gpg")
 (setq mew-pop-delete nil)
-
-(setq mew-config-alist
-	  '(
-		(default
-		 (pop-server			"pop3.163.com")
-		 (pop-port			"110")
-		 (name				"liunx")
-		 (user				"liunx163")
-		 (pop-auth			pass)
-		 (mail-domain		   "163.com")
-		 (pop-user			  "liunx163@163.com")
-		 (smtp-user			 "liunx163@163.com")
-		 (smtp-server		   "smtp.163.com")
-		 (smtp-auth-list	("PLAIN" "LOGIN" "CRAM-MD5"))
-		)))
+(setq mew-config-alist 
+;;Gmail
+	'(("default"
+	("name"		. "Lei Liu")
+	("user"		. "liunx1987")
+	("mail-domain"	. "gmail.com")
+	("proto"	. "+")
+	("pop-ssl"	. t)
+	("pop-ssl-port"	. "995")
+	("prog-ssl"	. "/usr/bin/mewstunnel")
+	("pop-auth"	. pass)
+	("pop-user"	. "liunx1987")
+	("pop-server"	. "pop.gmail.com")
+	("smtp-ssl"	. t)
+	("smtp-ssl-port". "465")
+	("smtp-auth-list" . ("PLAIN" "LOGIN" "CRAM-MD5"))
+	("smtp-user"	. "liunx1987")
+	("smtp-server"	. "smtp.gmail.com")
+	)
+  ("IMAP"
+	("name"	. "Lei Liu")
+	("user"	. "liunx1987")
+	("mail-domain" . "gmail.com")
+	("proto" . "%")
+	("imap-server"	. "imap.gmail.com")
+;;	("imap-ssh-server"	. "SSH server address")
+	("imap-user"	. "liunx1987@gmail.com")
+	("imap-size"	. 0)
+	("smtp-ssl"	. t)
+	("smtp-ssl-port". "465")
+	("smtp-auth-list" . ("PLAIN" "LOGIN" "CRAM-MD5"))
+	("smtp-user"	. "liunx1987")
+	("smtp-server"	. "smtp.gmail.com")
+	("imap-delete" . t)
+	("imap-queue-folder" . "%queue") 
+	("imap-trash-folder" . "%INBOX.Trash") ;; This must be in concile with your IMAP box setup
+	)
+ ))
+(setq mew-ssl-verify-level 0)
+(setq mew-prog-ssl "/usr/bin/mewstunnel")
 (defun mew-settings ()
   "Settings for `mew-mode'.")
 
