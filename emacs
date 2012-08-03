@@ -10,6 +10,10 @@
 (my-add-subdirs-to-load-path liunx-emacs-lisps-path)
 (my-add-subdirs-to-load-path liunx-emacs-my-lisps-path)
 
+;; 设置备份文件
+(setq backup-directory-alist `(("." . "~/.saves")))
+(setq backup-by-copying t)
+
 ;; Mew 配置文件，超级好用的邮件客户端
 (require 'mew-settings)
 
