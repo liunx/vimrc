@@ -27,9 +27,8 @@
 (set-default 'mew-decode-quoted 't)  
 (setq mew-prog-pgp "gpg")
 (setq mew-pop-delete nil)
-(setq mew-config-alist 
-;;Gmail
-	'(("default"
+(setq mew-config-alist
+      '(("default"
 	("name"		. "Lei Liu")
 	("user"		. "liunx1987")
 	("mail-domain"	. "gmail.com")
@@ -46,7 +45,7 @@
 	("smtp-user"	. "liunx1987")
 	("smtp-server"	. "smtp.gmail.com")
 	)
-  ("IMAP"
+	("IMAP"
 	("name"	. "Lei Liu")
 	("user"	. "liunx1987")
 	("mail-domain" . "gmail.com")
