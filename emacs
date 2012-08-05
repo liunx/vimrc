@@ -66,3 +66,21 @@
                                         (unless (null (cdr (window-list))) ; only one window
                                           (delete-window)))))
            (goto-char (point-min))))))))
+
+;; 动态地放大缩小字体，代码来自[http://sachachua.com/blog/2006/09/emacs-changing-the-font-size-on-the-fly/]
+(defun sacha/increase-font-size ()
+  (interactive)
+  (set-face-attribute 'default
+                      nil
+                      :height
+                      (ceiling (* 1.10
+                                  (face-attribute 'default :height)))))
+(defun sacha/decrease-font-size ()
+  (interactive)
+  (set-face-attribute 'default
+                      nil
+                      :height
+                      (floor (* 0.9
+                                  (face-attribute 'default :height)))))
+(global-set-key (kbd "C-+") 'sacha/increase-font-size)
+(global-set-key (kbd "C--") 'sacha/decrease-font-size)
