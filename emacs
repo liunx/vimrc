@@ -84,3 +84,6 @@
                                   (face-attribute 'default :height)))))
 (global-set-key (kbd "C-+") 'sacha/increase-font-size)
 (global-set-key (kbd "C--") 'sacha/decrease-font-size)
+
+;; add diretree like NERDTREE 
+(require 'dirtree)
