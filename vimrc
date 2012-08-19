@@ -145,7 +145,8 @@ endif
 
 " we may prefer relativenumber that number
 if exists('+relativenumber')
-    set relativenumber
+"    set relativenumber
+    set number
 else
 set number
 endif
@@ -354,7 +355,7 @@ fun SetupVAM()
   " commenting try .. endtry because trace is lost if you use it.
   " There should be no exception anyway
   " try
-    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Mark%2666', 'fugitive', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'CCTree', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'Powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'neocomplcache', 'neocomplcache-snippets_complete', 'smartword', 'MatchTag', 'matchparen', 'unite', 'TranslateIt' ], {'auto_install' : 0})
+    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Mark%2666', 'fugitive', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'CCTree', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'Powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'neocomplcache', 'neocomplcache-snippets_complete', 'smartword', 'MatchTag', 'matchparen', 'unite', 'TranslateIt', 'Conque_Shell', 'vimshell' ], {'auto_install' : 0})
     " pluginA could be github:YourName see vam#install#RewriteName()
   " catch /.*/
   "  echoe v:exception
@@ -500,17 +501,17 @@ nnoremap <silent> <Leader>ff	:call ExFuzzyFinder()<CR>
 " ConqueTerm settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " Python version
-"let g:ConqueTerm_PyVersion = 2
+let g:ConqueTerm_PyVersion = 2
 " Color Support
 "let g:ConqueTerm_Color = 1
 " Session Support
-"let g:ConqueTerm_SessionSupport = 1
+let g:ConqueTerm_SessionSupport = 1
 " Keep updating terminal buffer 
 "let g:ConqueTerm_ReadUnfocused = 1
-"nnoremap <silent> <Leader>ctb :ConqueTerm bash<CR>
-"nnoremap <silent> <Leader>cts :ConqueTermSplit bash<CR>
-"nnoremap <silent> <Leader>ctv :ConqueTermVSplit bash<CR>
-"nnoremap <silent> <Leader>ctt :ConqueTermTab bash<CR>
+nnoremap <silent> <Leader>ctb :ConqueTerm bash<CR>
+nnoremap <silent> <Leader>cts :ConqueTermSplit bash<CR>
+nnoremap <silent> <Leader>ctv :ConqueTermVSplit bash<CR>
+nnoremap <silent> <Leader>ctt :ConqueTermTab bash<CR>
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " search for visually selected text
@@ -650,7 +651,7 @@ nnoremap <silent> <C-x>dx :Dox<CR>
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " TxtBrowser settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-au BufEnter *.txt setlocal ft=txt
+" au BufEnter *.txt setlocal ft=txt
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " JavaScript settings
