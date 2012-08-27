@@ -355,7 +355,7 @@ fun SetupVAM()
   " commenting try .. endtry because trace is lost if you use it.
   " There should be no exception anyway
   " try
-    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Mark%2666', 'fugitive', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'CCTree', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'Powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'neocomplcache', 'neocomplcache-snippets_complete', 'smartword', 'MatchTag', 'matchparen', 'unite', 'TranslateIt', 'Conque_Shell', 'vimshell', 'grep', 'undotree', 'vim-signature', 'tips', 'winmanager%1440', 'vcscommand', 'vim-orgmode', 'calendar%52', 'utl', 'repeat', 'Tagbar', 'speeddating', 'NrrwRgn' ], {'auto_install' : 0})
+    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Mark%2666', 'fugitive', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'CCTree', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'Powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'neocomplcache', 'neocomplcache-snippets_complete', 'smartword', 'MatchTag', 'matchparen', 'unite', 'TranslateIt', 'Conque_Shell', 'vimshell', 'grep', 'undotree', 'vim-signature', 'winmanager%1440', 'vcscommand', 'vim-orgmode', 'calendar%52', 'utl', 'repeat', 'Tagbar', 'speeddating', 'NrrwRgn', 'Screen_vim__gnu_screentmux', 'tslime' ], {'auto_install' : 0})
     " pluginA could be github:YourName see vam#install#RewriteName()
   " catch /.*/
   "  echoe v:exception
@@ -772,3 +772,9 @@ let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 " vim-orgmode settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 let maplocalleader = "\\"
+
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" Screen_vim__gnu_screentmux settings
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+let g:ScreenImpl = 'Tmux'
+let g:ScreenShellTerminal = 'xfce4-terminal'
