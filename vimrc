@@ -378,22 +378,35 @@ call SetupVAM()
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " TagList settings
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-nnoremap <silent><Leader>tlt :TlistToggle<CR>
-nnoremap <silent><Leader>tlu :TlistUpdate<CR>
+"nnoremap <silent><Leader>tlt :TlistToggle<CR>
+"nnoremap <silent><Leader>tlu :TlistUpdate<CR>
 " close the taglist window when only the taglist window is present
-let Tlist_Exit_OnlyWindow = 1
-let Tlist_Use_SingleClick = 1
-let Tlist_Show_One_File = 1
-let Tlist_Inc_Winwidth = 0
-let Tlist_Process_File_Always = 1
-let Tlist_Use_Right_Window = 1
-let Tlist_Auto_Update = 1
-let Tlist_GainFocus_On_ToggleOpen = 1
+"let Tlist_Exit_OnlyWindow = 1
+"let Tlist_Use_SingleClick = 1
+"let Tlist_Show_One_File = 1
+"let Tlist_Inc_Winwidth = 0
+"let Tlist_Process_File_Always = 1
+"let Tlist_Use_Right_Window = 1
+"let Tlist_Auto_Update = 1
+"let Tlist_GainFocus_On_ToggleOpen = 1
 
 "XXX do not set the statusline output, or we can not see the ruler
 "set statusline=%<%f%=%([%{Tlist_Get_Tagname_By_Line()}]%)
-set title titlestring=%<%f\ %([%{Tlist_Get_Tagname_By_Line()}]%)
+"set title titlestring=%<%f\ %([%{Tlist_Get_Tagname_By_Line()}]%)
 "let Tlist_Show_Menu = 1
+
+" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" Tagbar settings
+"   Tagbar is a good replacement of taglist
+" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+let g:tagbar_width = 30
+let g:tagbar_autofocus = 1
+let g:tagbar_compact = 1
+let g:tagbar_singleclick = 1
+let g:tagbar_autoshowtag = 1
+nnoremap <silent><Leader>tlt :TagbarToggle<CR>
+
+
 
 " ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " NERDTree settings
