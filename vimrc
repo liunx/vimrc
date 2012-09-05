@@ -138,7 +138,7 @@ if has("gui_running")
     set guioptions-=LlRrb
 	set t_Co=256
 	set background=dark
-	colorscheme wombat256
+	colorscheme earendel
 else
 	color delek
 endif
@@ -355,7 +355,7 @@ fun SetupVAM()
   " commenting try .. endtry because trace is lost if you use it.
   " There should be no exception anyway
   " try
-    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Mark%2666', 'fugitive', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'CCTree', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'Powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'neocomplcache', 'neocomplcache-snippets_complete', 'smartword', 'MatchTag', 'matchparen', 'unite', 'TranslateIt', 'Conque_Shell', 'vimshell', 'grep', 'undotree', 'vim-signature', 'winmanager%1440', 'vcscommand', 'vim-orgmode', 'calendar%52', 'utl', 'repeat', 'Tagbar', 'speeddating', 'NrrwRgn', 'Screen_vim__gnu_screentmux', 'tslime', 'fakeclip' ], {'auto_install' : 0})
+    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Mark%2666', 'fugitive', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'CCTree', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'Powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'neocomplcache', 'neocomplcache-snippets_complete', 'smartword', 'MatchTag', 'matchparen', 'unite', 'TranslateIt', 'Conque_Shell', 'vimshell', 'grep', 'undotree', 'vim-signature', 'winmanager%1440', 'vcscommand', 'vim-orgmode', 'calendar%52', 'utl', 'repeat', 'Tagbar', 'speeddating', 'NrrwRgn', 'Screen_vim__gnu_screentmux', 'tslime', 'fakeclip', 'molokai' ], {'auto_install' : 0})
     " pluginA could be github:YourName see vam#install#RewriteName()
   " catch /.*/
   "  echoe v:exception
@@ -538,7 +538,7 @@ nnoremap <silent> <Leader>ctt :ConqueTermTab bash<CR>
 " folder settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 set fdm=syntax
-highlight Folded guibg=Black guifg=DarkGray
+"highlight Folded guibg=Black guifg=DarkGray
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " Mark settings
