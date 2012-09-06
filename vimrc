@@ -539,6 +539,9 @@ nnoremap <silent> <Leader>ctt :ConqueTermTab bash<CR>
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 set fdm=syntax
 highlight Folded guibg=#181818
+" I don't like long folddashes, so set fold fillchar to ' '
+set fillchars=stl:\ ,stlnc:\ ,vert:\|,fold:\ ,diff:-
+
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " Mark settings
