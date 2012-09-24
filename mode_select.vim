@@ -48,11 +48,11 @@ let g:C_Version= "0.0.1"  							" version number of this script; do not change
 function! ModeSelect()
 	let s:input = input(":")
     if (s:input == "bsd")
-        setlocal et sta sw=4 sts=4
+        set et sta sw=4 sts=4
     elseif (s:input == "bcm")
-        setlocal et sta sw=3 sts=3
+        set et sta sw=3 sts=3
     elseif (s:input == "linux")
-        setlocal tabstop=8 softtabstop=8 shiftwidth=8 noexpandtab
+        set tabstop=8 softtabstop=8 shiftwidth=8 noexpandtab
     endif
 endfunction
 

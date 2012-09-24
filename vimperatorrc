@@ -2,9 +2,9 @@
 
 source! /home/liunx/.vimperatorrc.local
 
-" vim: set ft=vimperator:
-
 map <silent> <Tab>l :tabnext<CR>
 map <silent> <Tab>h :tabprevious<CR>
 map <silent> <Tab>n :tabnew<CR>
 map <silent> <Tab>c :tabclose<CR>
+
+" vim: set ft=vimperator:
