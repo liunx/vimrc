@@ -263,6 +263,11 @@ autocmd FileType python setlocal et sta sw=4 sts=4
 autocmd FileType python setlocal foldmethod=indent
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" tcl language settings
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+autocmd FileType tcl setlocal et sta sw=4 sts=4
+
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " cscope settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 if has("cscope")
