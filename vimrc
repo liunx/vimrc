@@ -268,6 +268,12 @@ autocmd FileType python setlocal foldmethod=indent
 autocmd FileType tcl setlocal et sta sw=4 sts=4
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" lua language settings
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+autocmd FileType lua setlocal et sta sw=4 sts=4
+autocmd FileType lua setlocal foldmethod=indent
+
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " cscope settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 if has("cscope")
