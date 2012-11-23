@@ -273,6 +273,12 @@ autocmd FileType tcl setlocal et sta sw=4 sts=4
 autocmd FileType lua setlocal et sta sw=4 sts=4
 autocmd FileType lua setlocal foldmethod=indent
 
+" below are custom settings for lua-support
+let g:Lua_AuthorName  = 'Lei Liu'
+let g:Lua_AuthorRef   = 'liunx'
+let g:Lua_Company     = 'Neworcktech'
+let g:Lua_Email       = 'liunx163@163.com'
+
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " cscope settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -366,7 +372,7 @@ fun SetupVAM()
   " commenting try .. endtry because trace is lost if you use it.
   " There should be no exception anyway
   " try
-    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Mark%2666', 'fugitive', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'CCTree', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'Powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'neocomplcache', 'neocomplcache-snippets_complete', 'smartword', 'MatchTag', 'matchparen', 'unite', 'TranslateIt', 'Conque_Shell', 'vimshell', 'grep', 'undotree', 'vim-signature', 'winmanager%1440', 'vcscommand', 'vim-orgmode', 'calendar%52', 'utl', 'repeat', 'Tagbar', 'speeddating', 'NrrwRgn', 'Screen_vim__gnu_screentmux', 'tslime', 'fakeclip', 'molokai', 'colorsel', 'showcolor', 'Indent_Guides', 'SudoEdit', 'Vimarok', 'Color_Sampler_Pack', 'DrawIt' ], {'auto_install' : 1})
+    call vam#ActivateAddons(['taglist', 'c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Mark%2666', 'fugitive', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'CCTree', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'Powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'neocomplcache', 'neocomplcache-snippets_complete', 'smartword', 'MatchTag', 'matchparen', 'unite', 'TranslateIt', 'Conque_Shell', 'vimshell', 'grep', 'undotree', 'vim-signature', 'winmanager%1440', 'vcscommand', 'vim-orgmode', 'calendar%52', 'utl', 'repeat', 'Tagbar', 'speeddating', 'NrrwRgn', 'Screen_vim__gnu_screentmux', 'tslime', 'fakeclip', 'molokai', 'colorsel', 'showcolor', 'Indent_Guides', 'SudoEdit', 'Vimarok', 'Color_Sampler_Pack', 'DrawIt', 'lua-support' ], {'auto_install' : 1})
     " pluginA could be github:YourName see vam#install#RewriteName()
   " catch /.*/
   "  echoe v:exception
