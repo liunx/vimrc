@@ -276,7 +276,7 @@ autocmd FileType lua setlocal foldmethod=indent
 " below are custom settings for lua-support
 let g:Lua_AuthorName  = 'Lei Liu'
 let g:Lua_AuthorRef   = 'liunx'
-let g:Lua_Company     = 'Neworcktech'
+let g:Lua_Company     = 'Newrocktech'
 let g:Lua_Email       = 'liunx163@163.com'
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
