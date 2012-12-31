@@ -811,3 +811,4 @@ let maplocalleader = "\\"
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 let g:ScreenImpl = 'Tmux'
 let g:ScreenShellTerminal = 'xfce4-terminal'
+
