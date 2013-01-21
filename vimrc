@@ -815,6 +815,8 @@ let g:ScreenShellTerminal = 'xfce4-terminal'
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " xml format support
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+autocmd FileType xml setlocal et sta sw=2 sts=2
+autocmd FileType docbk setlocal et sta sw=2 sts=2
 " XML formatter
 function! DoFormatXML() range
 	" Save the file type
