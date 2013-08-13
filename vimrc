@@ -139,7 +139,7 @@ fun SetupVAM()
   " commenting try .. endtry because trace is lost if you use it.
   " There should be no exception anyway
   " try
-    call vam#ActivateAddons(['c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Mark%2666', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'smartword', 'grep', 'undotree', 'calendar%52', 'Tagbar', 'Screen_vim__gnu_screentmux', 'colorsel', 'SudoEdit', 'Vimarok', 'Colour_Sampler_Pack', 'lua-support', 'xml', 'neocomplete' ], {'auto_install' : 1})
+    call vam#ActivateAddons(['c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Mark%2666', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'smartword', 'grep', 'undotree', 'calendar%52', 'Tagbar', 'colorsel', 'SudoEdit', 'Vimarok', 'Colour_Sampler_Pack', 'lua-support', 'xml', 'neocomplete', 'tslime' ], {'auto_install' : 1})
     " pluginA could be github:YourName see vam#install#RewriteName()
   " catch /.*/
   "  echoe v:exception
@@ -165,7 +165,7 @@ if has("gui_running")
     set guioptions+=LlRrb
     set guioptions-=LlRrb
 	set t_Co=256
-	set background=light
+	set background=dark
 	colorscheme moria
 else
 	color delek
