@@ -785,3 +785,18 @@ let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" neocomplete
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+function! ModeSelect()
+	let s:input = input(":")
+    if (s:input == "bsd")
+        set et sta sw=4 sts=4
+    elseif (s:input == "bcm")
+        set et sta sw=3 sts=3
+    elseif (s:input == "linux")
+        set tabstop=8 softtabstop=8 shiftwidth=8 noexpandtab
+    endif
+endfunction
+
+command ModeSelect execute "call ModeSelect()"
