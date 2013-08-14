@@ -1,89 +1,181 @@
-;; Emacs settings
-;; Author: 	Lei Liu <liunx163@163.com>
-;; License: 	GPL
+;; ============================================================
+;; Aaron Bedra's Emacs 24 Configuration
+;; ============================================================
+;; User details
+(setq user-full-name "Lei Liu")
+(setq user-mail-address "liunx163@163.com")
 
-(defconst liunx-emacs-path "/home/liunx/Work/Emacs/src/liunx-emacs-plugins/" "我的emacs相关配置文件的路径")
-(defconst liunx-emacs-my-lisps-path  (concat liunx-emacs-path "my-lisps/") "我自己写的emacs lisp包的路径")
-(defconst liunx-emacs-lisps-path     (concat liunx-emacs-path "lisps/") "我下载的emacs lisp包的路径")
+;; Environment
+(setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
+(require 'cl)
 
-;; 把`my-emacs-lisps-path'的所有子目录都加到`load-path'里面
-(my-add-subdirs-to-load-path liunx-emacs-lisps-path)
-(my-add-subdirs-to-load-path liunx-emacs-my-lisps-path)
+;; show line number
+(global-linum-mode t)
 
-;; 设置备份文件
-(setq backup-directory-alist `(("." . "~/.saves")))
-(setq backup-by-copying t)
+;; Package Management
+(load "package")
+(package-initialize)
+(add-to-list 'package-archives
+	     '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
+	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(setq package-archive-enable-alist '(("melpa" deft magit)))
 
-;; Mew 配置文件，超级好用的邮件客户端
-(require 'mew-settings)
+;; Define default packages
+(defvar abedra/packages '(ac-slime
+                          auto-complete
+                          autopair
+                          clojure-mode
+                          clojure-test-mode
+                          coffee-mode
+                          deft
+                          gist
+                          go-mode
+                          haml-mode
+                          haskell-mode
+                          htmlize
+                          magit
+                          markdown-mode
+                          marmalade
+                          nrepl
+                          o-blog
+                          org
+                          paredit
+                          puppet-mode
+                          restclient
+                          rvm
+                          smex
+                          sml-mode
+                          yaml-mode)
+  "Default packages")
+;; Install default packages
+(defun abedra/packages-installed-p ()
+  (loop for pkg in abedra/packages
+        when (not (package-installed-p pkg)) do (return nil)
+        finally (return t)))
 
-;; 还不能用vimpulse，与emaci冲突
-;; (require 'vimpulse)
+(unless (abedra/packages-installed-p)
+  (message "%s" "Refreshing package database...")
+  (package-refresh-contents)
+  (dolist (pkg abedra/packages)
+    (when (not (package-installed-p pkg))
+      (package-install pkg))))
 
-;; undo-tree
-(require 'undo-tree)
-;; (global-undo-tree-mode)
+;; Start-up options
 
-(require 'emms-setup)
-(emms-standard)
-(emms-default-players)
+;; Splash Screen
+(setq inhibit-splash-screen t
+      initial-scratch-message nil)
 
-;; tabbar-ruler
-;; (setq tabbar-ruler-global-tabbar 't) ; If you want tabbar
-;; (setq tabbar-ruler-global-ruler 't) ; If you want a global ruler
-;; (setq tabbar-ruler-popup-menu 't) ; If you want a popup menu
-;; (setq tabbar-ruler-popup-toolbar 't) ; If you want a popup toolbar
-;; (require 'tabbar-ruler)
+(when (locate-library "clojure-mode")
+  (setq initial-major-mode 'clojure-mode))
 
-;; author: pluskid
-;; 调用 stardict 的命令行程序 sdcv 来查辞典
-;; 如果选中了 region 就查询 region 的内容，否则查询当前光标所在的单词
-;; 查询结果在一个叫做 *sdcv* 的 buffer 里面显示出来，在这个 buffer 里面
-;; 按 q 可以把这个 buffer 放到 buffer 列表末尾，按 d 可以查询单词
-(global-set-key (kbd "C-c d") 'kid-sdcv-to-buffer)
-(defun kid-sdcv-to-buffer ()
-  (interactive)
-  (let ((word (if mark-active
-                  (buffer-substring-no-properties (region-beginning) (region-end))
-                  (current-word nil t))))
-    (setq word (read-string (format "Search the dictionary for (default %s): " word)
-                            nil nil word))
-    (set-buffer (get-buffer-create "*sdcv*"))
-    (buffer-disable-undo)
-    (erase-buffer)
-    (let ((process (start-process-shell-command "sdcv" "*sdcv*" "sdcv" "-n" word)))
-      (set-process-sentinel
-       process
-       (lambda (process signal)
-         (when (memq (process-status process) '(exit signal))
-           (unless (string= (buffer-name) "*sdcv*")
-             (setq kid-sdcv-window-configuration (current-window-configuration))
-             (switch-to-buffer-other-window "*sdcv*")
-             (local-set-key (kbd "d") 'kid-sdcv-to-buffer)
-             (local-set-key (kbd "q") (lambda ()
-                                        (interactive)
-                                        (bury-buffer)
-                                        (unless (null (cdr (window-list))) ; only one window
-                                          (delete-window)))))
-           (goto-char (point-min))))))))
+;; Scroll bar, Tool bar, Menu bar
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
 
-;; 动态地放大缩小字体，代码来自[http://sachachua.com/blog/2006/09/emacs-changing-the-font-size-on-the-fly/]
-(defun sacha/increase-font-size ()
-  (interactive)
-  (set-face-attribute 'default
-                      nil
-                      :height
-                      (ceiling (* 1.10
-                                  (face-attribute 'default :height)))))
-(defun sacha/decrease-font-size ()
-  (interactive)
-  (set-face-attribute 'default
-                      nil
-                      :height
-                      (floor (* 0.9
-                                  (face-attribute 'default :height)))))
-(global-set-key (kbd "C-+") 'sacha/increase-font-size)
-(global-set-key (kbd "C--") 'sacha/decrease-font-size)
+;; Marking text
+(delete-selection-mode t)
+(transient-mark-mode t)
+(setq x-select-enable-clipboard t)
 
-;; add diretree like NERDTREE 
-(require 'dirtree)
+;; Display Settings
+(when window-system
+  (setq frame-title-format '(buffer-file-name "%f" ("%b"))))
+
+;; Indentation
+(setq tab-width 4
+      indent-tabs-mode nil)
+
+;; Backup files
+(setq make-backup-files nil)
+
+;; Yes and No
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; Key bindings
+(global-set-key (kbd "RET") 'newline-and-indent)
+(global-set-key (kbd "C-;") 'comment-or-uncomment-region)
+(global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+
+;; Misc
+(setq echo-keystrokes 0.1
+      use-dialog-box nil
+      visible-bell t)
+(show-paren-mode t)
+
+;; Theme
+(load-theme 'wombat t)
+
+;; Org mode
+(global-set-key (kbd "C-c a") 'org-agenda)
+(setq org-log-done t)
+(setq org-todo-keywords
+      '((sequence "TODO" "INPROGRESS" "DONE")))
+(setq org-todo-keyword-faces
+      '(("INPROGRESS" . (:foreground "blue" :weight bold))))
+(setq org-agenda-files (list "~/org/personal.org"))
+
+;; indent mode on
+(setq org-startup-indented t)
+
+;; org-babel
+(require 'ob)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((sh . t)))
+
+(add-to-list 'org-babel-tangle-lang-exts '("clojure" . "clj"))
+
+(defvar org-babel-default-header-args:clojure
+  '((:results . "silent") (:tangle . "yes")))
+
+(defun org-babel-execute:clojure (body params)
+  (lisp-eval-string body)
+  "Done!")
+
+(provide 'ob-clojure)
+
+(setq org-src-fontify-natively t)
+(setq org-confirm-babel-evaluate nil)
+
+;; ido
+(ido-mode t)
+(setq ido-enable-flex-matching t
+      ido-use-virtual-buffers t)
+
+;; Turn on column numbers
+(setq column-number-mode t)
+
+;; Temporary file management
+(setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+
+;; autopair-mode
+(require 'autopair)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
+ '(column-number-mode t)
+ '(custom-enabled-themes (quote (deeper-blue)))
+ '(default-input-method "chinese-py-punct")
+ '(display-time-mode t)
+ '(fringe-mode (quote (nil . 0)) nil (fringe))
+ '(menu-bar-mode nil)
+ '(show-paren-mode t)
+ '(size-indication-mode t)
+ '(tool-bar-mode nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "文泉驿等宽微米黑" :foundry "unknown" :slant normal :weight normal :height 120 :width normal)))))
