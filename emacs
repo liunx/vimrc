@@ -107,9 +107,6 @@
       visible-bell t)
 (show-paren-mode t)
 
-;; Theme
-(load-theme 'wombat t)
-
 ;; Org mode
 (global-set-key (kbd "C-c a") 'org-agenda)
 (setq org-log-done t)
@@ -117,7 +114,8 @@
       '((sequence "TODO" "INPROGRESS" "DONE")))
 (setq org-todo-keyword-faces
       '(("INPROGRESS" . (:foreground "blue" :weight bold))))
-(setq org-agenda-files (list "~/org/personal.org"))
+(setq org-agenda-files (quote ("~/Work/Liunx/Agenda"
+                               "~/Work/Broadcom/org")))
 
 ;; indent mode on
 (setq org-startup-indented t)
@@ -170,6 +168,7 @@
  '(display-time-mode t)
  '(fringe-mode (quote (nil . 0)) nil (fringe))
  '(menu-bar-mode nil)
+ '(org-agenda-files (quote ("~/Work/Broadcom/doc/商务领航工作任务.org" "~/org/personal.org")))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
