@@ -167,7 +167,7 @@ if has("gui_running")
     set guioptions-=LlRrb
 	set t_Co=256
 	set background=dark
-	colorscheme moria
+	colorscheme jellybeans
 else
 	color delek
 endif
