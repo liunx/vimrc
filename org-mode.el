@@ -1,6 +1,6 @@
 
 ;; Custom Key Bindings
-(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "<f12>") 'org-agenda)
 (global-set-key (kbd "<f5>") 'bh/org-todo)
 (global-set-key (kbd "<S-f5>") 'bh/widen)
 (global-set-key (kbd "<f7>") 'bh/set-truncate-lines)
