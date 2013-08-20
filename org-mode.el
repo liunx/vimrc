@@ -738,7 +738,7 @@ When not restricted, skip project and sub-project tasks, habits, and project rel
 (require 'ox-latex)
 (require 'ox-ascii)
 
-(setq org-ditaa-jar-path "~/java/ditaa0_6b.jar")
+(setq org-ditaa-jar-path "~/java/ditaa0_9.jar")
 (setq org-plantuml-jar-path "~/java/plantuml.jar")
 
 (add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
@@ -776,7 +776,7 @@ When not restricted, skip project and sub-project tasks, habits, and project rel
 (add-to-list 'org-src-lang-modes (quote ("plantuml" . fundamental)))
 
 ;; Don't enable this because it breaks access to emacs from my Android phone
-(setq org-startup-with-inline-images nil)
+(setq org-startup-with-inline-images t)
 
 ; experimenting with docbook exports - not finished
 (setq org-export-docbook-xsl-fo-proc-command "fop %s %s")

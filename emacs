@@ -107,40 +107,19 @@
       visible-bell t)
 (show-paren-mode t)
 
+;; ============================================================
 ;; Org mode
-(global-set-key (kbd "C-c a") 'org-agenda)
-(setq org-log-done t)
-(setq org-todo-keywords
-      '((sequence "TODO" "INPROGRESS" "DONE")))
-(setq org-todo-keyword-faces
-      '(("INPROGRESS" . (:foreground "blue" :weight bold))))
-(setq org-agenda-files (quote ("~/Work/Liunx/Agenda"
-                               "~/Work/Broadcom/org")))
+;; ============================================================
+(add-to-list 'load-path (expand-file-name "~/Work/Emacs/src/org-mode/lisp"))
+;; we also need the contrib part of org-mode
+(add-to-list 'load-path (expand-file-name "~/Work/Emacs/src/org-mode/contrib/lisp"))
+(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
+(require 'org)
 
-;; indent mode on
-(setq org-startup-indented t)
+(add-to-list 'load-path (expand-file-name "~/.emacs.d"))
+(load "org-mode")
 
-;; org-babel
-(require 'ob)
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((sh . t)))
-
-(add-to-list 'org-babel-tangle-lang-exts '("clojure" . "clj"))
-
-(defvar org-babel-default-header-args:clojure
-  '((:results . "silent") (:tangle . "yes")))
-
-(defun org-babel-execute:clojure (body params)
-  (lisp-eval-string body)
-  "Done!")
-
-(provide 'ob-clojure)
-
-(setq org-src-fontify-natively t)
-(setq org-confirm-babel-evaluate nil)
-
+;; ======================= END ================================
 ;; ido
 (ido-mode t)
 (setq ido-enable-flex-matching t
@@ -168,7 +147,6 @@
  '(display-time-mode t)
  '(fringe-mode (quote (nil . 0)) nil (fringe))
  '(menu-bar-mode nil)
- '(org-agenda-files (quote ("~/Work/Broadcom/doc/商务领航工作任务.org" "~/org/personal.org")))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
