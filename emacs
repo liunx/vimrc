@@ -46,6 +46,8 @@
                           rvm
                           smex
                           sml-mode
+                          bbdb
+                          org-mime
                           yaml-mode)
   "Default packages")
 ;; Install default packages
