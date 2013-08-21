@@ -120,10 +120,21 @@
 
 ;;
 ;; Standard key bindings
+;;
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
+;;
+;; agenda files
+;;
+(setq org-agenda-files (quote ("~/git/org"
+                               "~/git/org/client1"
+                               "~/git/org/client2")))
+
+;;
+;; load org-mode 
+;;
 (add-to-list 'load-path (expand-file-name "~/.emacs.d"))
 (load "org-mode")
 
@@ -155,6 +166,7 @@
  '(display-time-mode t)
  '(fringe-mode (quote (nil . 0)) nil (fringe))
  '(menu-bar-mode nil)
+ '(org-agenda-files (quote ("~/Work/Emacs/work/org_mode/test-org.org" "/home/liunx/git/org/diary.org" "/home/liunx/git/org/refile.org" "/home/liunx/git/org/test_refile.org" "/home/liunx/git/org/todo.org")))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
@@ -163,4 +175,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "文泉驿等宽微米黑" :foundry "unknown" :slant normal :weight normal :height 120 :width normal)))))
+ '(default ((t (:family "文泉驿等宽微米黑" :foundry "unknown" :slant normal :weight normal :height 120 :width normal))))
+ '(org-mode-line-clock ((t (:foreground "red" :box (:line-width -1 :style released-button)))) t))
