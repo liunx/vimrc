@@ -139,8 +139,7 @@ fun SetupVAM()
   " commenting try .. endtry because trace is lost if you use it.
   " There should be no exception anyway
   " try
-    " call vam#ActivateAddons(['c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Mark%2666', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'smartword', 'grep', 'undotree', 'calendar%52', 'Tagbar', 'colorsel', 'SudoEdit', 'Vimarok', 'Colour_Sampler_Pack', 'lua-support', 'xml', 'neocomplete', 'tslime' ], {'auto_install' : 1})
-    call vam#ActivateAddons(['c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Mark%2666', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'smartword', 'grep', 'undotree', 'calendar%52', 'Tagbar', 'colorsel', 'SudoEdit', 'Vimarok', 'Colour_Sampler_Pack', 'lua-support', 'xml', 'neocomplete', 'tslime' ], {'auto_install' : 1})
+    call vam#ActivateAddons(['c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Mark%2666', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'smartword', 'grep', 'undotree', 'calendar%52', 'Tagbar', 'colorsel', 'SudoEdit', 'Vimarok', 'Colour_Sampler_Pack', 'lua-support', 'xml', 'neocomplete', 'tslime', 'vim-multiple-cursors'], {'auto_install' : 1})
     " pluginA could be github:YourName see vam#install#RewriteName()
   " catch /.*/
   "  echoe v:exception
@@ -273,7 +272,7 @@ highlight TabLineFill term=reverse cterm=reverse ctermfg=white ctermbg=black
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " omnicppcomplete settings XXX DO WE NEED IT ANY MORE? XXX
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-set tags+=~/.vim/tags/cpp
+"set tags+=~/.vim/tags/cpp
 let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
 let OmniCpp_ShowAccess = 1
@@ -787,7 +786,7 @@ let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-" neocomplete
+" ModeSelect
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function! ModeSelect()
 	let s:input = input(":")
@@ -801,3 +800,4 @@ function! ModeSelect()
 endfunction
 
 command ModeSelect execute "call ModeSelect()"
+

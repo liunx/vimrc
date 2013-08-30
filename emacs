@@ -166,7 +166,7 @@
  '(display-time-mode t)
  '(fringe-mode (quote (nil . 0)) nil (fringe))
  '(menu-bar-mode nil)
- '(org-agenda-files (quote ("~/Work/Emacs/work/org_mode/test-org.org" "/home/liunx/git/org/diary.org" "/home/liunx/git/org/refile.org" "/home/liunx/git/org/test_refile.org" "/home/liunx/git/org/todo.org")))
+ '(org-agenda-files (quote ("~/Work/Broadcom/doc/商务领航工作任务.org" "/home/liunx/git/org/diary.org" "/home/liunx/git/org/refile.org" "/home/liunx/git/org/test_refile.org" "/home/liunx/git/org/todo.org")))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
