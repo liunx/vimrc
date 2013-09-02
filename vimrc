@@ -801,3 +801,9 @@ endfunction
 
 command ModeSelect execute "call ModeSelect()"
 
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" vimdiff
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+nnoremap <silent> <C-x>vd   :execute "vertical diffsplit " . input(": ", "", "file")<CR>
+nnoremap <silent> <C-x>sd   :execute "diffsplit " . input(": ", "", "file")<CR>
+nnoremap <silent> <C-x>do   :execute "diffoff"<CR>
