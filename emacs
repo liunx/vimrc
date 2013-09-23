@@ -45,9 +45,11 @@
                           restclient
                           rvm
                           smex
+			  session
                           sml-mode
                           bbdb
                           org-mime
+			  tabbar-ruler
                           yaml-mode)
   "Default packages")
 ;; Install default packages
@@ -153,6 +155,15 @@
 
 ;; autopair-mode
 (require 'autopair)
+
+;; session
+(require 'session)
+(add-hook 'after-init-hook 'session-initialize)
+
+;; tabbar-ruler
+(setq tabbar-ruler-global-tabbar t) ; If you want tabbar
+(setq tabbar-ruler-global-ruler t) ; if you want a global ruler
+(require 'tabbar-ruler)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
