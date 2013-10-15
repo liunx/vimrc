@@ -45,11 +45,12 @@
                           restclient
                           rvm
                           smex
-			  session
+			              session
                           sml-mode
                           bbdb
                           org-mime
-			  tabbar-ruler
+			              tabbar-ruler
+                          undo-tree
                           yaml-mode)
   "Default packages")
 ;; Install default packages
@@ -164,6 +165,10 @@
 (setq tabbar-ruler-global-tabbar t) ; If you want tabbar
 (setq tabbar-ruler-global-ruler t) ; if you want a global ruler
 (require 'tabbar-ruler)
+
+;; undo-tree
+(require 'undo-tree)
+(global-undo-tree-mode)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
