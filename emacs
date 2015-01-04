@@ -45,12 +45,14 @@
                           restclient
                           rvm
                           smex
-			              session
+			  session
                           sml-mode
                           bbdb
                           org-mime
-			              tabbar-ruler
+			  tabbar-ruler
                           undo-tree
+			  w3m
+			  mew
                           yaml-mode)
   "Default packages")
 ;; Install default packages
@@ -141,6 +143,11 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d"))
 (load "org-mode")
 
+;;
+;; 生成中文PDF文件的配置
+;;
+;(load "my-org-settings")
+
 ;; ======================= END ================================
 ;; ido
 (ido-mode t)
@@ -162,13 +169,46 @@
 (add-hook 'after-init-hook 'session-initialize)
 
 ;; tabbar-ruler
-(setq tabbar-ruler-global-tabbar t) ; If you want tabbar
-(setq tabbar-ruler-global-ruler t) ; if you want a global ruler
 (require 'tabbar-ruler)
+;;(setq tabbar-ruler-global-tabbar t) ; If you want tabbar
+;;(setq tabbar-ruler-global-ruler t) ; if you want a global ruler
 
 ;; undo-tree
 (require 'undo-tree)
 (global-undo-tree-mode)
+
+;; w3m
+(require 'w3m)
+(require 'w3m-search)
+(setq browse-url-browser-function 'w3m-browse-url)
+(autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+;; optional keyboard short-cut
+(global-set-key "\C-xm" 'browse-url-at-point)
+(define-key w3m-mode-map [mouse-2] 'w3m-mouse-view-this-url-new-session)
+(standard-display-ascii ?\255 [?+])
+(standard-display-ascii ?\227 [?-])
+(standard-display-ascii ?\222 [?'])
+(setq w3m-use-form t)
+(setq w3m-tab-width 8)
+(setq w3m-use-cookies t)
+(setq w3m-use-toolbar t)
+(setq w3m-use-mule-ucs t)
+(setq w3m-fill-column 120)
+(setq w3m-default-display-inline-image t)
+(setq w3m-default-toggle-inline-images t)
+(setq w3m-home-page "http://cn.bing.com")
+(setq browse-url-browser-function 'w3m-browse-url)
+(setq w3m-view-this-url-new-session-in-background t)
+(setq w3m-search-default-engine "Bingo")
+(add-to-list 'w3m-search-engine-alist '("Bingo" "http://cn.bing.com/search?q=%s"))
+(defadvice w3m-search (after change-default activate)
+	   (let ((engine (nth 1 minibuffer-history)))
+	     (when (assoc engine w3m-search-engine-alist)
+	       (setq w3m-search-default-engine engine))))
+
+(require 'emamux)
+(custom-set-variables
+ '(emamux:completing-read-type 'helm))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -177,12 +217,14 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
  '(column-number-mode t)
- '(custom-enabled-themes (quote (deeper-blue)))
+ '(custom-enabled-themes (quote (wombat)))
  '(default-input-method "chinese-py-punct")
  '(display-time-mode t)
+ '(font-use-system-font t)
  '(fringe-mode (quote (nil . 0)) nil (fringe))
  '(menu-bar-mode nil)
  '(org-agenda-files (quote ("~/Work/Broadcom/doc/商务领航工作任务.org" "/home/liunx/git/org/diary.org" "/home/liunx/git/org/refile.org" "/home/liunx/git/org/test_refile.org" "/home/liunx/git/org/todo.org")))
+ '(session-use-package t nil (session))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
@@ -191,5 +233,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "文泉驿等宽微米黑" :foundry "unknown" :slant normal :weight normal :height 120 :width normal))))
+ '(default ((t (:family "Droid Sans Fallback" :foundry "unknown" :slant normal :weight normal :height 120 :width normal))))
  '(org-mode-line-clock ((t (:foreground "red" :box (:line-width -1 :style released-button)))) t))
+(put 'downcase-region 'disabled nil)

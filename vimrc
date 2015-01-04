@@ -158,7 +158,7 @@ call SetupVAM()
 " who launch the vim, so for the seek of use full of keys in vim, we 
 " should turn to gnome-vim.(But it seemed to be a little slow)
 if has("gui_running")
-	set guifont=Monospace\ 12
+	set guifont=Droid\ Sans\ Mono\ 11
 	set guioptions-=m
     " do not show tool bars
     set guioptions-=T
@@ -168,7 +168,7 @@ if has("gui_running")
 	set background=dark
 	colorscheme jellybeans
 else
-	color delek
+	color desert256
 endif
 
 " we may prefer relativenumber that number
