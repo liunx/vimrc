@@ -158,7 +158,7 @@ call SetupVAM()
 " who launch the vim, so for the seek of use full of keys in vim, we 
 " should turn to gnome-vim.(But it seemed to be a little slow)
 if has("gui_running")
-	set guifont=Droid\ Sans\ Mono\ 11
+	set guifont=Monospace\ 11
 	set guioptions-=m
     " do not show tool bars
     set guioptions-=T
@@ -166,9 +166,9 @@ if has("gui_running")
     set guioptions-=LlRrb
 	set t_Co=256
 	set background=dark
-	colorscheme jellybeans
+	colorscheme fu
 else
-	color desert256
+	color fu
 endif
 
 " we may prefer relativenumber that number
@@ -288,7 +288,6 @@ au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 " python language settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 autocmd FileType python setlocal et sta sw=4 sts=4
-autocmd FileType python setlocal foldmethod=indent
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " tcl language settings
@@ -315,6 +314,7 @@ if has("cscope")
 	set csto=0
 	set cst
 	set nocsverb
+    "set cscopequickfix=s-,c-,d-,i-,t-,e-
 	" add any database in current directory
 	if filereadable("cscope.out")
 	    cs add cscope.out
@@ -325,51 +325,32 @@ if has("cscope")
 	set csverb
 endif
 
-"set cscopequickfix=s-,c-,d-,i-,t-,e-
+function! ExcCscopeCommands()
+    let input = input("mod: ")
+    let cword = expand("<cword>")
+    if (len(cword) == 0)
+        let cword = input("name: ")
+    endif
+    if (input == "s")
+        execute "scs find s " . cword
+    elseif (input == "g")
+        execute "scs find g " . cword
+    elseif (input == "c")
+        execute "scs find c " . cword
+    elseif (input == "t")
+        execute "scs find t " . cword
+    elseif (input == "e")
+        execute "scs find e " . cword
+    elseif (input == "f")
+        execute "scs find f " . expand("<cfile>")
+    elseif (input == "i")
+        execute "scs find i ^" . expand("<cfile>") . "$"
+    elseif (input == "d")
+        execute "scs find d " . expand("<cword>")
+    endif
+endfunction
 
-map <C-_> :cstag <C-R>=expand("<cword>")<CR><CR>
-map g<C-]> :cs find 3 <C-R>=expand("<cword>")<CR><CR>
-map g<C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
-nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <C-_>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-
-" Using 'CTRL-spacebar' then a search type makes the vim window
-" split horizontally, with search result displayed in
-" the new window.
-
-nmap <C-Space>s :scs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space>g :scs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space>c :scs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space>t :scs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space>e :scs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <C-Space>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <C-Space>d :scs find d <C-R>=expand("<cword>")<CR><CR>
-
-" Hitting CTRL-space *twice* before the search type does a vertical
-" split instead of a horizontal one
-
-nmap <C-Space><C-Space>s
-	\:vert scs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space><C-Space>g
-	\:vert scs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space><C-Space>c
-	\:vert scs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space><C-Space>t
-	\:vert scs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space><C-Space>e
-	\:vert scs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-Space><C-Space>i
-	\:vert sc, find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <C-Space><C-Space>d
-	\:vert scs find d <C-R>=expand("<cword>")<CR><CR>
-
+nnoremap <silent> <Leader>ecs   :call ExcCscopeCommands()<CR>
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " tags settings
@@ -519,10 +500,10 @@ nnoremap <silent> <Leader>ff	:call ExFuzzyFinder()<CR>
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " folder settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-set fdm=syntax
+"set fdm=syntax
 " highlight Folded guibg=#181818
 " I don't like long folddashes, so set fold fillchar to ' '
-set fillchars=stl:\ ,stlnc:\ ,vert:\|,fold:\ ,diff:-
+"set fillchars=stl:\ ,stlnc:\ ,vert:\|,fold:\ ,diff:-
 
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
