@@ -793,3 +793,31 @@ nnoremap <silent> <C-x>do   :execute "diffoff"<CR>
 " eclim
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 let g:EclimDisabled = 1
+
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" Netrw for remote edit
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+let g:netrw_liststyle = 3
+let g:netrw_banner = 0
+"let g:netrw_browse_split = 1
+let g:netrw_winsize = 20
+let g:netrw_altv = 1
+
+" TODO the global list for remote session, we'll save it to file
+let g:remote_list = []
+
+function! RemoteEditOpen()
+    echo("Sessions :>")
+    let l:sel = inputlist(g:remote_list)
+    let l:ses = g:remote_list[l:sel]
+    execute "Lexplore" l:ses
+endfunction
+
+function! RemoteEditAdd()
+    let l:s = input("Remote:")
+    call add(g:remote_list, l:s)
+endfunction
+
+nnoremap <silent><Leader>reo :call RemoteEditOpen()<CR>
+nnoremap <silent><Leader>rea :call RemoteEditAdd()<CR>
+
