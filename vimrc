@@ -803,21 +803,59 @@ let g:netrw_banner = 0
 let g:netrw_winsize = 20
 let g:netrw_altv = 1
 
-" TODO the global list for remote session, we'll save it to file
-let g:remote_list = []
+let g:remote_rc = expand('$HOME') . '/.vim/remote.rc'
+if !filereadable(g:remote_rc)
+    call writefile([], g:remote_rc)
+endif
 
+let g:remote_list = []
+let g:is_read = v:false
 function! RemoteEditOpen()
-    echo("Sessions :>")
-    let l:sel = inputlist(g:remote_list)
-    let l:ses = g:remote_list[l:sel]
+    let l:tmp_list = ["Session:"]
+    let l:i = 0
+    if (! g:is_read)
+        let g:is_read = v:true
+        let g:remote_list = readfile(g:remote_rc)
+    endif
+
+    while l:i < len(g:remote_list)
+        call add(l:tmp_list, (l:i + 1) . '. ' . g:remote_list[l:i])
+        let l:i = l:i + 1
+    endwhile
+
+    let l:sel = inputlist(l:tmp_list)
+    if empty(l:sel)
+        return
+    endif
+    if l:sel > len(g:remote_list)
+        return
+    endif
+    if l:sel < 1
+        return
+    endif
+    let l:ses = g:remote_list[l:sel - 1]
     execute "Lexplore" l:ses
 endfunction
 
 function! RemoteEditAdd()
     let l:s = input("Remote:")
     call add(g:remote_list, l:s)
+    echo "\n"
+    echomsg "Add OK!"
+endfunction
+
+function! RemoteEditSave()
+    call writefile(g:remote_list, g:remote_rc)
+    echo "\n"
+    echomsg "Save OK!"
+endfunction
+
+function! RemoteEditClear()
+    let g:remote_list = []
 endfunction
 
 nnoremap <silent><Leader>reo :call RemoteEditOpen()<CR>
 nnoremap <silent><Leader>rea :call RemoteEditAdd()<CR>
+nnoremap <silent><Leader>res :call RemoteEditSave()<CR>
+nnoremap <silent><Leader>rec :call RemoteEditClear()<CR>
 
