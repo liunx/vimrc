@@ -270,21 +270,6 @@ highlight TabLineSel term=bold cterm=bold,underline ctermfg=5
 highlight TabLineFill term=reverse cterm=reverse ctermfg=white ctermbg=black
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-" omnicppcomplete settings XXX DO WE NEED IT ANY MORE? XXX
-" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-"set tags+=~/.vim/tags/cpp
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-" automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-
-" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " python language settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 autocmd FileType python setlocal et sta sw=4 sts=4
@@ -686,7 +671,7 @@ let NERDSpaceDelims="1"
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
+"let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
