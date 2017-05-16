@@ -125,34 +125,53 @@ if !exists(":DiffOrig")
 endif
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-" Vim addons manager settings
+" Vundle
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-fun SetupVAM()
-  let addons_base = expand('$HOME') . '/.vim-addons'
-  exec 'set runtimepath+='.addons_base.'/vim-addon-manager'
+filetype off                  " required
 
-  " unix based os users may want to use this code checking out VAM
-  if !isdirectory(addons_base)
-    exec '!p='.shellescape(addons_base).'; mkdir -p "$p" && cd "$p" && git clone git://github.com/MarcWeber/vim-addon-manager.git'
-  endif
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
 
-  " commenting try .. endtry because trace is lost if you use it.
-  " There should be no exception anyway
-  " try
-    call vam#ActivateAddons(['c%213', 'The_NERD_tree', 'FuzzyFinder', 'session%3150', 'Mark%2666', 'VisIncr', 'perl-support', 'bash-support', 'Vim-Support', 'The_NERD_Commenter', 'simple_bookmarks', 'YankRing', 'colorselector', 'hexman', 'powerline', 'current-func-info', 'DoxygenToolkit', 'tlib', 'TxtBrowser', 'JavaScript_syntax', 'smartword', 'grep', 'undotree', 'calendar%52', 'Tagbar', 'colorsel', 'SudoEdit', 'Vimarok', 'Colour_Sampler_Pack', 'lua-support', 'xml', 'neocomplete', 'tslime', 'vim-multiple-cursors'], {'auto_install' : 1})
-    " pluginA could be github:YourName see vam#install#RewriteName()
-  " catch /.*/
-  "  echoe v:exception
-  " endtry
-endf
-call SetupVAM()
-" experimental: run after gui has been started (gvim) [3]
-" option1:  au VimEnter * call SetupVAM()
-" option2:  au GUIEnter * call SetupVAM()
-" See BUGS sections below [*]
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Tagbar'
+Plugin 'FuzzyFinder'
+Plugin 'smartword'
+Plugin 'colorselector'
+Plugin 'L9'
+Plugin 'Google-Translate'
+Plugin 'aklt/plantuml-syntax'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/vim-slumlord'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'Shougo/neocomplete.vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
 
+" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " gnome-vim settings
+" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 " We have to use gvim sometimes, because the vim keys maps may have a 
 " conflict with gnome-terminal's key maps, or any other parent shell 
 " who launch the vim, so for the seek of use full of keys in vim, we 
@@ -167,6 +186,8 @@ if has("gui_running")
 	set t_Co=256
 	set background=dark
 	colorscheme fu
+    set lines=56
+    set columns=136
 else
 	color fu
 endif
@@ -550,9 +571,10 @@ nnoremap <silent> <C-y>o :execute "YRPop " . input(":")<CR>
 " that not be always used.
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-" Powerline settings
+" vim-airline settings
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-" let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " FileType indent settings
