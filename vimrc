@@ -139,7 +139,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'Tagbar'
 Plugin 'FuzzyFinder'
-Plugin 'smartword'
+Plugin 'kana/vim-smartword'
 Plugin 'colorselector'
 Plugin 'L9'
 Plugin 'Google-Translate'
@@ -153,8 +153,9 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'xolox/vim-session'
 Plugin 'xolox/vim-misc'
-Plugin 'Mark'
+Plugin 'vim-scripts/Mark--Karkat'
 Plugin 'VisIncr'
+Plugin 'WolfgangMehner/vim-plugins'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -527,8 +528,8 @@ nmap <silent><C-m>c <Plug>MarkAllClear
 " we just want to search the current pattern
 nmap <Plug>IgnoreMarkSearchNext <Plug>MarkSearchNext
 nmap <Plug>IgnoreMarkSearchPrev <Plug>MarkSearchPrev
-nmap * <Plug>MarkSearchOrCurNext
-nmap # <Plug>MarkSearchOrCurPrev
+"nmap * <Plug>MarkSearchOrCurNext
+"nmap # <Plug>MarkSearchOrCurPrev
 
 
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
