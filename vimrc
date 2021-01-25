@@ -124,6 +124,10 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
+" enable spellcheck
+set spell
+set spellfile=~/.vim/spell/en.utf-8.add
+
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 " Vundle
 " +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -146,7 +150,7 @@ Plugin 'Google-Translate'
 Plugin 'aklt/plantuml-syntax'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/vim-slumlord'
 Plugin 'scrooloose/nerdcommenter'
@@ -156,6 +160,8 @@ Plugin 'xolox/vim-misc'
 Plugin 'vim-scripts/Mark--Karkat'
 Plugin 'VisIncr'
 Plugin 'WolfgangMehner/vim-plugins'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -182,7 +188,7 @@ filetype plugin indent on    " required
 " who launch the vim, so for the seek of use full of keys in vim, we 
 " should turn to gnome-vim.(But it seemed to be a little slow)
 if has("gui_running")
-	set guifont=Monospace\ 11
+	set guifont=Monospace\ 10
 	set guioptions-=m
     " do not show tool bars
     set guioptions-=T
@@ -870,4 +876,9 @@ nnoremap <silent><Leader>reo :call RemoteEditOpen()<CR>
 nnoremap <silent><Leader>rea :call RemoteEditAdd()<CR>
 nnoremap <silent><Leader>res :call RemoteEditSave()<CR>
 nnoremap <silent><Leader>rec :call RemoteEditClear()<CR>
+
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+" markdown
+" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+let g:vim_markdown_folding_disabled = 1
 
